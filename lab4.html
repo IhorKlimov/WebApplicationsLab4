@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lab 2</title>
+    <meta charset="utf-8">
+    <meta name="description" content="Lab 2">
+    <link href="styles.css" rel="stylesheet" type="text/css">
+    <script type='text/javascript' src='script.js'></script>
+</head>
+<body>
+<div class="one">
+    <h1>Lab 2</h1>
+    <ul>
+        <li><a href="lab4.html">Copy 1</a></li>
+        <li><a href="lab4_2.html">Copy 2</a></li>
+        <li><a href="lab4_3.html">Copy 3</a></li>
+        <li><a href="lab4_4.html">Copy 4</a></li>
+        <li><a href="lab4_5.html">Copy 5</a></li>
+    </ul>
+</div>
+<div class="content">
+    <div id="two" class="two">
+        <p>Second paragraph. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+            ut labore et dolore magna aliqua. Sodales neque sodales ut etiam. Egestas sed sed risus pretium quam
+            vulputate dignissim suspendisse in. Interdum posuere lorem ipsum dolor sit amet consectetur. Amet facilisis
+            magna etiam tempor orci eu lobortis elementum nibh. Tristique senectus et netus et malesuada fames ac. Diam
+            volutpat commodo sed egestas egestas fringilla phasellus faucibus scelerisque. Morbi enim nunc faucibus a
+            pellentesque sit. Eget gravida cum sociis natoque penatibus. Blandit cursus risus at ultrices mi tempus.
+            Velit scelerisque in dictum non.</p>
+        <a href="https://en.wikipedia.org/wiki/Web_application">
+            <img src="https://www.gortnm.com/uploads/1625570277.png" alt="web applications">
+        </a>
+    </div>
+    <div class="right-part">
+        <div class="three">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+                dolore magna aliqua. Sodales neque sodales ut etiam. Egestas sed sed risus pretium quam vulputate
+                dignissim suspendisse in. Interdum posuere lorem ipsum dolor sit amet consectetur. Amet facilisis magna
+                etiam tempor orci eu lobortis elementum nibh. Tristique senectus et netus et malesuada fames ac. Diam
+                volutpat commodo sed egestas egestas fringilla phasellus faucibus scelerisque. Morbi enim nunc faucibus
+                a pellentesque sit. Eget gravida cum sociis natoque penatibus. Blandit cursus risus at ultrices mi
+                tempus. Velit scelerisque in dictum non.</p>
+        </div>
+        <div class="horizontal">
+            <div class="vertical" style="width: 70%">
+                <div id="four" class="four">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                        labore et dolore magna aliqua. Sodales neque sodales ut etiam. Egestas sed sed risus pretium
+                        quam vulputate dignissim suspendisse in. Interdum posuere lorem ipsum dolor sit amet
+                        consectetur. Amet facilisis magna etiam tempor orci eu lobortis elementum nibh. Tristique
+                        senectus et netus et malesuada fames ac. Diam volutpat commodo sed egestas egestas fringilla
+                        phasellus faucibus scelerisque. Morbi enim nunc faucibus a pellentesque sit. Eget gravida cum
+                        sociis natoque penatibus. Blandit cursus risus at ultrices mi tempus. Velit scelerisque in
+                        dictum non.</p>
+
+                    <img src="https://www.w3schools.com/tags/workplace.jpg" alt="Workplace" usemap="#workmap"
+                         width="400" height="379">
+
+                    <map name="workmap">
+                        <area shape="rect" coords="34,44,270,350" alt="Computer"
+                              href="https://en.wikipedia.org/wiki/MacBook">
+                        <area shape="rect" coords="290,172,333,250" alt="Phone"
+                              href="https://en.wikipedia.org/wiki/IPhone">
+                        <area shape="circle" coords="337,300,44" alt="Cup of coffee"
+                              href="https://en.wikipedia.org/wiki/Coffee">
+                    </map>
+
+                    <div>
+                        <button type="button" onclick="showFormInputs()">X (Reveal form inputs)</button>
+                    </div>
+
+                    <form name="numberInput" onsubmit="return reverseNumber()">
+                        <label for="number">Enter a number</label><br>
+                        <input type="text" id="number" name="number"><br>
+                        <input type="submit" value="Submit">
+                    </form>
+
+                    <form name="borderColor">
+                        <label for="color">Set a border color</label><br>
+                        <input type="text" id="color" name="color"><br>
+                        <button type='button' onclick="setBorderColor()">Submit</button>
+                    </form>
+
+                    <div>
+                        <button type="button" onclick="saveCSSInstruction(this)">1</button>
+                    </div>
+
+                    <div>
+                        <button type="button" onclick="disableCSSFor(this)">2</button>
+                    </div>
+
+                    <form name="dropdowns" onsubmit="return createDropdowns()">
+                        <label>Create a dropdown</label>
+                        <br>
+                        <label for="tabTitle">Enter tab title:</label>
+                        <br>
+                        <input id="tabTitle" name="tabTitle" type="text">
+                        <br>
+                        <label for="dropdownContent">Enter coma separated dropdown content</label>
+                        <br>
+                        <input id="dropdownContent" name="dropdownContent" type="text">
+                        <br>
+                        <input type="submit" value="Create dropdown">
+                    </form>
+                </div>
+                <div class="six">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                        labore et dolore magna aliqua. Sodales neque sodales ut etiam. Egestas sed sed risus pretium
+                        quam vulputate dignissim suspendisse in. Interdum posuere lorem ipsum dolor sit amet
+                        consectetur. Amet facilisis magna etiam tempor orci eu lobortis elementum nibh. Tristique
+                        senectus et netus et malesuada fames ac. Diam volutpat commodo sed egestas egestas fringilla
+                        phasellus faucibus scelerisque. Morbi enim nunc faucibus a pellentesque sit. Eget gravida cum
+                        sociis natoque penatibus. Blandit cursus risus at ultrices mi tempus. Velit scelerisque in
+                        dictum non.</p>
+                </div>
+            </div>
+            <div id="five" class="five" style="width: 30%">
+                <p>Fifth paragraph. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                    incididunt ut labore et dolore magna aliqua. Sodales neque sodales ut etiam. Egestas sed sed risus
+                    pretium quam vulputate dignissim suspendisse in. Interdum posuere lorem ipsum dolor sit amet
+                    consectetur. Amet facilisis magna etiam tempor orci eu lobortis elementum nibh. Tristique senectus
+                    et netus et malesuada fames ac. Diam volutpat commodo sed egestas egestas fringilla phasellus
+                    faucibus scelerisque. Morbi enim nunc faucibus a pellentesque sit. Eget gravida cum sociis natoque
+                    penatibus. Blandit cursus risus at ultrices mi tempus. Velit scelerisque in dictum non.</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="seven">
+    <h1>Footer</h1>
+</div>
+</body>
+</html>
