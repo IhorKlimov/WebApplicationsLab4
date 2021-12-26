@@ -27,9 +27,11 @@ class Circle {
         // check for wall collisions
         if (this.x + circleRadius > c.width || this.x - circleRadius < 0) {
             this.xSpeed = -this.xSpeed;
+            showStatus(this.color + " circle hit a wall");
         }
         if (this.y + circleRadius > c.height || this.y - circleRadius < 0) {
             this.ySpeed = -this.ySpeed;
+            showStatus(this.color + " circle hit a wall");
         }
 
         ctx.beginPath();
@@ -235,6 +237,7 @@ function showWork() {
     adjustCanvasSize();
 
     initCanvas();
+    showStatus(null);
 }
 
 function initCanvas() {
@@ -245,7 +248,7 @@ function initCanvas() {
 
     const blueVectorAngle = getRandomAngle();
     blueCircle = new Circle(
-        (width - circleRadius) * Math.random() + circleRadius,
+        (width - circleRadius * 2) * Math.random() + circleRadius,
         circleRadius,
         getXSpeed(blueVectorAngle, circleSpeed),
         getYSpeed(blueVectorAngle, circleSpeed),
@@ -254,7 +257,7 @@ function initCanvas() {
     );
     const orangeVectorAngle = getRandomAngle();
     orangeCircle = new Circle(
-        (width - circleRadius) * Math.random() + circleRadius,
+        (width - circleRadius * 2) * Math.random() + circleRadius,
         height - circleRadius,
         getXSpeed(orangeVectorAngle, circleSpeed),
         getYSpeed(orangeVectorAngle, circleSpeed),
@@ -298,12 +301,13 @@ function draw(shouldAnimate) {
     if (distance < circleRadius * 2) {
         blueCircle.revertDirection();
         orangeCircle.revertDirection();
+        showStatus("Circle collision detected");
     }
 
     // check for full placement
     if (blueCircle.isWithinRectangle(0, c.height / 2, c.width, c.height / 2)
         && orangeCircle.isWithinRectangle(0, 0, c.width, c.height / 2)) {
-        console.log("animation done");
+        showStatus("Full placement reached");
         isAnimationDone = true;
         document.getElementById("start_animation").disabled = false;
         document.getElementById("start_animation").innerText = "Reload";
@@ -321,12 +325,14 @@ function startAnimation() {
         document.getElementById("start_animation").innerText = "Start";
         isAnimationDone = false;
         initCanvas();
+        showStatus("Reset animation clicked");
     } else {
         document.getElementById("start_animation").disabled = true;
         lastFrameTimeInMillis = new Date().getTime();
         window.requestAnimationFrame(function () {
             draw(true);
         });
+        showStatus("Animation started");
     }
 }
 
@@ -335,4 +341,12 @@ function hideWork() {
     isClosed = true;
     document.getElementById("start_animation").innerText = "Start";
     document.getElementById("start_animation").disabled = false;
+}
+
+function showStatus(status) {
+    if (status != null) {
+        document.getElementById("status").innerText = status;
+    } else {
+        document.getElementById("status").innerText = "";
+    }
 }

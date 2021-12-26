@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0b034a46-3b74-442a-8520-16346238ef42" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/christmas.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sky.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/snow.jpeg" afterDir="false" />
+    <list default="true" id="0b034a46-3b74-442a-8520-16346238ef42" name="Changes" comment="Add basic animations">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lab4.html" beforeDir="false" afterPath="$PROJECT_DIR$/lab4.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/script.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/styles.css" afterDir="false" />
@@ -62,8 +60,16 @@
       <option name="presentableId" value="Default" />
       <updated>1640460095291</updated>
       <workItem from="1640460098220" duration="12000" />
-      <workItem from="1640460121634" duration="17597000" />
+      <workItem from="1640460121634" duration="18857000" />
     </task>
+    <task id="LOCAL-00001" summary="Add basic animations">
+      <created>1640518789595</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1640518789595</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -79,5 +85,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Add basic animations" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add basic animations" />
   </component>
 </project>

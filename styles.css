@@ -180,7 +180,6 @@ img {
     flex-direction: row;
     align-items: center;
     padding: 10px;
-    justify-content: space-between;
 }
 
 #work button {
@@ -213,6 +212,14 @@ img {
     top: 0;
     height: 20px;
     border-radius: 50%;
+}
+
+.controls .title{
+    margin-left: 10px;
+}
+
+.controls #status{
+    margin-left: 10px;
 }
 
 #anim #circle_two {
