@@ -1,5 +1,5 @@
 {
-  "circleRadius": 30,
+  "circleRadius": 10,
   "circleSpeed": 50,
   "startButtonText": "Start",
   "reloadButtonText": "Reload"
