@@ -102,6 +102,8 @@
                         <br>
                         <input type="submit" value="Create dropdown">
                     </form>
+
+                    <button onclick="showWork()">Play</button>
                 </div>
                 <div class="six">
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
@@ -128,6 +130,21 @@
 </div>
 <div class="seven">
     <h1>Footer</h1>
+</div>
+
+<div id="work">
+    <div class="controls">
+        <div>
+            <button id="close_work" onclick="hideWork()">Close</button>
+            <button id="start_animation" onclick="startAnimation()">Start</button>
+        </div>
+        <div>Header</div>
+    </div>
+    <div id="anim">
+        <div id="top"></div>
+        <div id="bottom"></div>
+        <canvas id="canvas"></canvas>
+    </div>
 </div>
 </body>
 </html>

@@ -1,4 +1,56 @@
 const httpRequest = new XMLHttpRequest();
+const circleRadius = 30;
+const circleAngle = Math.PI * 2;
+const circleSpeed = 50;
+
+let lastFrameTimeInMillis = 0;
+let blueCircle;
+let orangeCircle;
+let isAnimationDone = false;
+let isClosed = false;
+
+class Circle {
+    constructor(x, y, xSpeed, ySpeed, radius, color) {
+        this.x = x;
+        this.y = y;
+        this.xSpeed = xSpeed;
+        this.ySpeed = ySpeed;
+        this.radius = radius;
+        this.color = color;
+        console.log(xSpeed, ySpeed);
+    }
+
+    draw(c, ctx, delta) {
+        this.x += this.xSpeed * delta;
+        this.y += this.ySpeed * delta;
+
+        // check for wall collisions
+        if (this.x + circleRadius > c.width || this.x - circleRadius < 0) {
+            this.xSpeed = -this.xSpeed;
+        }
+        if (this.y + circleRadius > c.height || this.y - circleRadius < 0) {
+            this.ySpeed = -this.ySpeed;
+        }
+
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, circleAngle);
+        ctx.closePath();
+        ctx.fillStyle = this.color;
+        ctx.fill();
+    }
+
+    revertDirection() {
+        this.xSpeed = -this.xSpeed;
+        this.ySpeed = -this.ySpeed;
+    }
+
+    isWithinRectangle(x, y, width, height) {
+        return this.x - this.radius >= x
+            && this.x + this.radius <= x + width
+            && this.y + this.radius <= y + height
+            && this.y - this.radius >= y;
+    }
+}
 
 window.onload = function () {
     let borderColor = localStorage.getItem("borderColor");
@@ -16,6 +68,7 @@ window.onload = function () {
     swapSecondAndFifthParagraphChildren();
     calculatePentagonArea(12);
 }
+
 
 function swapSecondAndFifthParagraphChildren() {
     const two = document.getElementById("two");
@@ -166,4 +219,120 @@ function displayServerResult() {
             alert('There was a problem with the request.');
         }
     }
+}
+
+function adjustCanvasSize() {
+    const parent = document.getElementById("anim");
+    const canvas = document.getElementById("canvas");
+
+    canvas.setAttribute('height', parent.clientHeight + "px");
+    canvas.setAttribute('width', parent.clientWidth + "px");
+}
+
+
+function showWork() {
+    document.getElementById("work").style.display = "flex";
+    adjustCanvasSize();
+
+    initCanvas();
+}
+
+function initCanvas() {
+    isClosed = false;
+    const c = document.getElementById("canvas");
+    const width = c.width;
+    const height = c.height;
+
+    const blueVectorAngle = getRandomAngle();
+    blueCircle = new Circle(
+        (width - circleRadius) * Math.random() + circleRadius,
+        circleRadius,
+        getXSpeed(blueVectorAngle, circleSpeed),
+        getYSpeed(blueVectorAngle, circleSpeed),
+        circleRadius,
+        "blue"
+    );
+    const orangeVectorAngle = getRandomAngle();
+    orangeCircle = new Circle(
+        (width - circleRadius) * Math.random() + circleRadius,
+        height - circleRadius,
+        getXSpeed(orangeVectorAngle, circleSpeed),
+        getYSpeed(orangeVectorAngle, circleSpeed),
+        circleRadius,
+        "orange"
+    );
+
+    lastFrameTimeInMillis = 0;
+    draw(false);
+}
+
+function getXSpeed(angle, maxSpeed) {
+    return Math.cos(angle) * maxSpeed;
+}
+
+function getYSpeed(angle, maxSpeed) {
+    return Math.sin(angle) * maxSpeed;
+}
+
+function getRandomAngle() {
+    return Math.random() * (Math.PI * 2);
+}
+
+function draw(shouldAnimate) {
+    const time = new Date();
+    const delta = lastFrameTimeInMillis !== 0
+        ? (time.getTime() - lastFrameTimeInMillis) / 1000
+        : 0;
+
+    const c = document.getElementById("canvas");
+    const ctx = c.getContext("2d");
+    ctx.clearRect(0, 0, c.width, c.height);
+
+    blueCircle.draw(c, ctx, delta);
+    orangeCircle.draw(c, ctx, delta);
+
+    // check circles for collisions
+    const catet1 = Math.abs(blueCircle.x - orangeCircle.x);
+    const catet2 = Math.abs(blueCircle.y - orangeCircle.y);
+    const distance = Math.hypot(catet1, catet2);
+    if (distance < circleRadius * 2) {
+        blueCircle.revertDirection();
+        orangeCircle.revertDirection();
+    }
+
+    // check for full placement
+    if (blueCircle.isWithinRectangle(0, c.height / 2, c.width, c.height / 2)
+        && orangeCircle.isWithinRectangle(0, 0, c.width, c.height / 2)) {
+        console.log("animation done");
+        isAnimationDone = true;
+        document.getElementById("start_animation").disabled = false;
+        document.getElementById("start_animation").innerText = "Reload";
+    }
+
+    lastFrameTimeInMillis = time.getTime();
+
+    if (shouldAnimate && !isClosed && !isAnimationDone) {
+        window.requestAnimationFrame(draw);
+    }
+}
+
+function startAnimation() {
+    if (isAnimationDone) {
+        document.getElementById("start_animation").innerText = "Start";
+        isAnimationDone = false;
+        initCanvas();
+    } else {
+        document.getElementById("start_animation").disabled = true;
+        lastFrameTimeInMillis = new Date().getTime();
+        window.requestAnimationFrame(function () {
+            draw(true);
+        });
+    }
+}
+
+function hideWork() {
+    document.getElementById("work").style.display = "none";
+    isClosed = true;
+    document.getElementById("start_animation").innerText = "Start";
+    document.getElementById("start_animation").disabled = false;
 }
