@@ -1,13 +1,15 @@
 const httpRequest = new XMLHttpRequest();
-const circleRadius = 30;
-const circleAngle = Math.PI * 2;
-const circleSpeed = 50;
 
 let lastFrameTimeInMillis = 0;
 let blueCircle;
 let orangeCircle;
 let isAnimationDone = false;
 let isClosed = false;
+
+let technicalParameters = {
+
+};
+
 
 class Circle {
     constructor(x, y, xSpeed, ySpeed, radius, color) {
@@ -25,17 +27,17 @@ class Circle {
         this.y += this.ySpeed * delta;
 
         // check for wall collisions
-        if (this.x + circleRadius > c.width || this.x - circleRadius < 0) {
+        if (this.x + technicalParameters.circleRadius > c.width || this.x - technicalParameters.circleRadius < 0) {
             this.xSpeed = -this.xSpeed;
-            showStatus(this.color + " circle hit a wall");
+            showStatus(this.color + " circle hit a wall", true);
         }
-        if (this.y + circleRadius > c.height || this.y - circleRadius < 0) {
+        if (this.y + technicalParameters.circleRadius > c.height || this.y - technicalParameters.circleRadius < 0) {
             this.ySpeed = -this.ySpeed;
-            showStatus(this.color + " circle hit a wall");
+            showStatus(this.color + " circle hit a wall", true);
         }
 
         ctx.beginPath();
-        ctx.arc(this.x, this.y, this.radius, 0, circleAngle);
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
         ctx.closePath();
         ctx.fillStyle = this.color;
         ctx.fill();
@@ -237,7 +239,7 @@ function showWork() {
     adjustCanvasSize();
 
     initCanvas();
-    showStatus(null);
+    showStatus("Popup is displayed", false);
 }
 
 function initCanvas() {
@@ -248,20 +250,20 @@ function initCanvas() {
 
     const blueVectorAngle = getRandomAngle();
     blueCircle = new Circle(
-        (width - circleRadius * 2) * Math.random() + circleRadius,
-        circleRadius,
-        getXSpeed(blueVectorAngle, circleSpeed),
-        getYSpeed(blueVectorAngle, circleSpeed),
-        circleRadius,
+        (width - technicalParameters.circleRadius * 2) * Math.random() + technicalParameters.circleRadius,
+        technicalParameters.circleRadius,
+        getXSpeed(blueVectorAngle, technicalParameters.circleSpeed),
+        getYSpeed(blueVectorAngle, technicalParameters.circleSpeed),
+        technicalParameters.circleRadius,
         "blue"
     );
     const orangeVectorAngle = getRandomAngle();
     orangeCircle = new Circle(
-        (width - circleRadius * 2) * Math.random() + circleRadius,
-        height - circleRadius,
-        getXSpeed(orangeVectorAngle, circleSpeed),
-        getYSpeed(orangeVectorAngle, circleSpeed),
-        circleRadius,
+        (width - technicalParameters.circleRadius * 2) * Math.random() + technicalParameters.circleRadius,
+        height - technicalParameters.circleRadius,
+        getXSpeed(orangeVectorAngle, technicalParameters.circleSpeed),
+        getYSpeed(orangeVectorAngle, technicalParameters.circleSpeed),
+        technicalParameters.circleRadius,
         "orange"
     );
 
@@ -298,19 +300,19 @@ function draw(shouldAnimate) {
     const catet1 = Math.abs(blueCircle.x - orangeCircle.x);
     const catet2 = Math.abs(blueCircle.y - orangeCircle.y);
     const distance = Math.hypot(catet1, catet2);
-    if (distance < circleRadius * 2) {
+    if (distance < technicalParameters.circleRadius * 2) {
         blueCircle.revertDirection();
         orangeCircle.revertDirection();
-        showStatus("Circle collision detected");
+        showStatus("Circle collision detected", true);
     }
 
     // check for full placement
     if (blueCircle.isWithinRectangle(0, c.height / 2, c.width, c.height / 2)
         && orangeCircle.isWithinRectangle(0, 0, c.width, c.height / 2)) {
-        showStatus("Full placement reached");
+        showStatus("Full placement reached", true);
         isAnimationDone = true;
         document.getElementById("start_animation").disabled = false;
-        document.getElementById("start_animation").innerText = "Reload";
+        document.getElementById("start_animation").innerText = technicalParameters.reloadButtonText;
     }
 
     lastFrameTimeInMillis = time.getTime();
@@ -322,31 +324,71 @@ function draw(shouldAnimate) {
 
 function startAnimation() {
     if (isAnimationDone) {
-        document.getElementById("start_animation").innerText = "Start";
+        document.getElementById("start_animation").innerText = technicalParameters.startButtonText;
         isAnimationDone = false;
         initCanvas();
-        showStatus("Reset animation clicked");
+        showStatus("Reset animation clicked", true);
     } else {
         document.getElementById("start_animation").disabled = true;
         lastFrameTimeInMillis = new Date().getTime();
         window.requestAnimationFrame(function () {
             draw(true);
         });
-        showStatus("Animation started");
+        showStatus("Animation started", true);
     }
 }
 
 function hideWork() {
+    showStatus("Animation popup is hidden", false);
     document.getElementById("work").style.display = "none";
     isClosed = true;
-    document.getElementById("start_animation").innerText = "Start";
+    document.getElementById("start_animation").innerText = technicalParameters.startButtonText;
     document.getElementById("start_animation").disabled = false;
+    displayAnimationLogs();
 }
 
-function showStatus(status) {
-    if (status != null) {
-        document.getElementById("status").innerText = status;
+function displayAnimationLogs() {
+    let animationLogs = localStorage.getItem("animationLogs");
+    animationLogs = localStorage.getItem("animationLogs");
+    if (animationLogs == null) {
+        animationLogs = [];
     } else {
+        animationLogs = JSON.parse(animationLogs);
+    }
+
+    const animationLogsDiv = document.getElementById("animationLogs");
+    const list = document.createElement("ul");
+    animationLogsDiv.innerHTML = "";
+
+    animationLogs.forEach(function (item) {
+        let li = document.createElement("li");
+        let d = document.createElement("div");
+        let text = document.createTextNode(new Date(item.time) + " " + item.status);
+        d.appendChild(text);
+        li.appendChild(d);
+        list.appendChild(li);
+    });
+
+    animationLogsDiv.appendChild(list);
+}
+
+function showStatus(status, displayInPopup) {
+    if (status == null) {
         document.getElementById("status").innerText = "";
+    } else {
+        if (displayInPopup) {
+            document.getElementById("status").innerText = status;
+        }
+        let animationLogs = localStorage.getItem("animationLogs");
+        if (animationLogs == null) {
+            animationLogs = [];
+        } else {
+            animationLogs = JSON.parse(animationLogs);
+        }
+        animationLogs.push({
+            time: new Date().getTime(),
+            status: status
+        });
+        localStorage.setItem("animationLogs", JSON.stringify(animationLogs));
     }
 }

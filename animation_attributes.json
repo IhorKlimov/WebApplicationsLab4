@@ -1,0 +1,6 @@
+{
+  "circleRadius": 30,
+  "circleSpeed": 50,
+  "startButtonText": "Start",
+  "reloadButtonText": "Reload"
+}

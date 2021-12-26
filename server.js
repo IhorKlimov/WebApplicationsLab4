@@ -49,4 +49,15 @@ app.get('/getDropdown', (req, res) => {
     });
 });
 
+app.get('/getTechnicalParametersForAnimations', (req, res) => {
+    res.setHeader('Access-Control-Allow-Origin', '*')
+
+    fs.readFile("animation_attributes.json", 'utf8', function (err, data) {
+        if (err) {
+            console.log(err);
+        }
+        res.send(data);
+    });
+});
+
 app.use(express.static(__dirname));

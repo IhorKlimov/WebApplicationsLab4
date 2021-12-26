@@ -4,11 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0b034a46-3b74-442a-8520-16346238ef42" name="Changes" comment="Add basic animations">
+    <list default="true" id="0b034a46-3b74-442a-8520-16346238ef42" name="Changes" comment="Fix initial position calculations">
+      <change afterPath="$PROJECT_DIR$/animation_attributes.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lab4.html" beforeDir="false" afterPath="$PROJECT_DIR$/lab4.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/script.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/server.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,7 +61,7 @@
       <option name="presentableId" value="Default" />
       <updated>1640460095291</updated>
       <workItem from="1640460098220" duration="12000" />
-      <workItem from="1640460121634" duration="18857000" />
+      <workItem from="1640460121634" duration="21383000" />
     </task>
     <task id="LOCAL-00001" summary="Add basic animations">
       <created>1640518789595</created>
@@ -69,7 +70,14 @@
       <option name="project" value="LOCAL" />
       <updated>1640518789595</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Fix initial position calculations">
+      <created>1640519960070</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1640519960070</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -88,6 +96,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Add basic animations" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add basic animations" />
+    <MESSAGE value="Fix initial position calculations" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix initial position calculations" />
   </component>
 </project>
