@@ -8,9 +8,7 @@ let orangeCircleDiv;
 let isAnimationDone = false;
 let isClosed = false;
 
-let technicalParameters = {
-
-};
+let technicalParameters = {};
 
 
 class Circle {
@@ -71,7 +69,7 @@ class DivCircle {
         console.log(id, x, y);
         this.div = document.getElementById(id);
         this.div.style.color = this.color;
-        this.div.style.left = this.x  - this.radius +"px";
+        this.div.style.left = this.x - this.radius + "px";
         this.div.style.top = this.y - this.radius + "px";
     }
 
