@@ -69,6 +69,8 @@ class DivCircle {
         console.log(id, x, y);
         this.div = document.getElementById(id);
         this.div.style.color = this.color;
+        this.div.style.width = 2 * radius + "px";
+        this.div.style.height = 2 * radius + "px";
         this.div.style.left = this.x - this.radius + "px";
         this.div.style.top = this.y - this.radius + "px";
     }
