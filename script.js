@@ -3,6 +3,8 @@ const httpRequest = new XMLHttpRequest();
 let lastFrameTimeInMillis = 0;
 let blueCircle;
 let orangeCircle;
+let blueCircleDiv;
+let orangeCircleDiv;
 let isAnimationDone = false;
 let isClosed = false;
 
@@ -41,6 +43,54 @@ class Circle {
         ctx.closePath();
         ctx.fillStyle = this.color;
         ctx.fill();
+    }
+
+    revertDirection() {
+        this.xSpeed = -this.xSpeed;
+        this.ySpeed = -this.ySpeed;
+    }
+
+    isWithinRectangle(x, y, width, height) {
+        return this.x - this.radius >= x
+            && this.x + this.radius <= x + width
+            && this.y + this.radius <= y + height
+            && this.y - this.radius >= y;
+    }
+}
+
+class DivCircle {
+    constructor(id, x, y, xSpeed, ySpeed, radius, color) {
+        this.x = x;
+        this.y = y;
+        this.xSpeed = xSpeed;
+        this.ySpeed = ySpeed;
+        this.radius = radius;
+        this.color = color;
+        console.log(xSpeed, ySpeed);
+
+        console.log(id, x, y);
+        this.div = document.getElementById(id);
+        this.div.style.color = this.color;
+        this.div.style.left = this.x  - this.radius +"px";
+        this.div.style.top = this.y - this.radius + "px";
+    }
+
+    draw(c, delta) {
+        this.x += this.xSpeed * delta;
+        this.y += this.ySpeed * delta;
+
+        // check for wall collisions
+        if (this.x + technicalParameters.circleRadius > c.offsetWidth || this.x - technicalParameters.circleRadius < 0) {
+            this.xSpeed = -this.xSpeed;
+            showStatusDivs(this.color + " circle hit a wall", true);
+        }
+        if (this.y + technicalParameters.circleRadius > c.offsetHeight || this.y - technicalParameters.circleRadius < 0) {
+            this.ySpeed = -this.ySpeed;
+            showStatusDivs(this.color + " circle hit a wall", true);
+        }
+
+        this.div.style.left = this.x - this.radius + "px";
+        this.div.style.top = this.y - this.radius + "px";
     }
 
     revertDirection() {
@@ -242,6 +292,13 @@ function showWork() {
     showStatus("Popup is displayed", false);
 }
 
+function showWorkDivs() {
+    document.getElementById("work_divs").style.display = "flex";
+
+    initCanvasDivs();
+    showStatusDivs("Popup is displayed", false);
+}
+
 function initCanvas() {
     isClosed = false;
     const c = document.getElementById("canvas");
@@ -269,6 +326,38 @@ function initCanvas() {
 
     lastFrameTimeInMillis = 0;
     draw(false);
+}
+
+function initCanvasDivs() {
+    isClosed = false;
+    const c = document.getElementById("canvas_divs");
+    const width = c.offsetWidth;
+    const height = c.offsetHeight;
+    console.log("check ", width, height)
+
+    const blueVectorAngle = getRandomAngle();
+    blueCircleDiv = new DivCircle(
+        "circle_one",
+        (width - technicalParameters.circleRadius * 2) * 1 + technicalParameters.circleRadius,
+        technicalParameters.circleRadius,
+        getXSpeed(blueVectorAngle, technicalParameters.circleSpeed),
+        getYSpeed(blueVectorAngle, technicalParameters.circleSpeed),
+        technicalParameters.circleRadius,
+        "blue"
+    );
+    const orangeVectorAngle = getRandomAngle();
+    orangeCircleDiv = new DivCircle(
+        "circle_two",
+        (width - technicalParameters.circleRadius * 2) * Math.random() + technicalParameters.circleRadius,
+        height - technicalParameters.circleRadius,
+        getXSpeed(orangeVectorAngle, technicalParameters.circleSpeed),
+        getYSpeed(orangeVectorAngle, technicalParameters.circleSpeed),
+        technicalParameters.circleRadius,
+        "orange"
+    );
+
+    lastFrameTimeInMillis = 0;
+    drawDivs(false);
 }
 
 function getXSpeed(angle, maxSpeed) {
@@ -322,6 +411,43 @@ function draw(shouldAnimate) {
     }
 }
 
+function drawDivs(shouldAnimate) {
+    const time = new Date();
+    const delta = lastFrameTimeInMillis !== 0
+        ? (time.getTime() - lastFrameTimeInMillis) / 1000
+        : 0;
+
+    const c = document.getElementById("canvas_divs");
+
+    blueCircleDiv.draw(c, delta);
+    orangeCircleDiv.draw(c, delta);
+
+    // check circles for collisions
+    const catet1 = Math.abs(blueCircleDiv.x - orangeCircleDiv.x);
+    const catet2 = Math.abs(blueCircleDiv.y - orangeCircleDiv.y);
+    const distance = Math.hypot(catet1, catet2);
+    if (distance < technicalParameters.circleRadius * 2) {
+        blueCircleDiv.revertDirection();
+        orangeCircleDiv.revertDirection();
+        showStatusDivs("Circle collision detected", true);
+    }
+
+    // check for full placement
+    if (blueCircleDiv.isWithinRectangle(0, c.offsetHeight / 2, c.offsetWidth, c.offsetHeight / 2)
+        && orangeCircleDiv.isWithinRectangle(0, 0, c.offsetWidth, c.offsetHeight / 2)) {
+        showStatusDivs("Full placement reached", true);
+        isAnimationDone = true;
+        document.getElementById("start_animation_divs").disabled = false;
+        document.getElementById("start_animation_divs").innerText = technicalParameters.reloadButtonText;
+    }
+
+    lastFrameTimeInMillis = time.getTime();
+
+    if (shouldAnimate && !isClosed && !isAnimationDone) {
+        window.requestAnimationFrame(drawDivs);
+    }
+}
+
 function startAnimation() {
     if (isAnimationDone) {
         document.getElementById("start_animation").innerText = technicalParameters.startButtonText;
@@ -338,12 +464,37 @@ function startAnimation() {
     }
 }
 
+function startAnimationDivs() {
+    if (isAnimationDone) {
+        document.getElementById("start_animation_divs").innerText = technicalParameters.startButtonText;
+        isAnimationDone = false;
+        initCanvasDivs();
+        showStatusDivs("Reset animation clicked", true);
+    } else {
+        document.getElementById("start_animation_divs").disabled = true;
+        lastFrameTimeInMillis = new Date().getTime();
+        window.requestAnimationFrame(function () {
+            drawDivs(true);
+        });
+        showStatusDivs("Animation started", true);
+    }
+}
+
 function hideWork() {
     showStatus("Animation popup is hidden", false);
     document.getElementById("work").style.display = "none";
     isClosed = true;
     document.getElementById("start_animation").innerText = technicalParameters.startButtonText;
     document.getElementById("start_animation").disabled = false;
+    displayAnimationLogs();
+}
+
+function hideWorkDivs() {
+    showStatusDivs("Animation popup is hidden", false);
+    document.getElementById("work_divs").style.display = "none";
+    isClosed = true;
+    document.getElementById("start_animation_divs").innerText = technicalParameters.startButtonText;
+    document.getElementById("start_animation_divs").disabled = false;
     displayAnimationLogs();
 }
 
@@ -378,6 +529,27 @@ function showStatus(status, displayInPopup) {
     } else {
         if (displayInPopup) {
             document.getElementById("status").innerText = status;
+        }
+        let animationLogs = localStorage.getItem("animationLogs");
+        if (animationLogs == null) {
+            animationLogs = [];
+        } else {
+            animationLogs = JSON.parse(animationLogs);
+        }
+        animationLogs.push({
+            time: new Date().getTime(),
+            status: status
+        });
+        localStorage.setItem("animationLogs", JSON.stringify(animationLogs));
+    }
+}
+
+function showStatusDivs(status, displayInPopup) {
+    if (status == null) {
+        document.getElementById("status_divs").innerText = "";
+    } else {
+        if (displayInPopup) {
+            document.getElementById("status_divs").innerText = status;
         }
         let animationLogs = localStorage.getItem("animationLogs");
         if (animationLogs == null) {

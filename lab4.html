@@ -103,7 +103,8 @@
                         <input type="submit" value="Create dropdown">
                     </form>
 
-                    <button onclick="showWork()">Play</button>
+                    <button onclick="showWork()">Play Canvas</button>
+                    <button onclick="showWorkDivs()">Play Divs</button>
                     <div id="animationLogs"></div>
                 </div>
                 <div class="six">
@@ -146,6 +147,24 @@
         <div id="top"></div>
         <div id="bottom"></div>
         <canvas id="canvas"></canvas>
+    </div>
+</div>
+
+<div id="work_divs">
+    <div class="controls">
+        <div>
+            <button id="close_work_divs" onclick="hideWorkDivs()">Close</button>
+            <button id="start_animation_divs" onclick="startAnimationDivs()">Start</button>
+        </div>
+        <div class="title">Status:</div>
+        <div id="status_divs"></div>
+    </div>
+    <div id="anim_divs">
+        <div id="top_divs"></div>
+        <div id="bottom_divs"></div>
+        <div id="canvas_divs"></div>
+        <div id="circle_one"></div>
+        <div id="circle_two"></div>
     </div>
 </div>
 

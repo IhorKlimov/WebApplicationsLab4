@@ -159,7 +159,7 @@ img {
     display: block;
 }
 
-#work {
+#work, #work_divs {
     background: white;
     color: black;
     width: calc(40% + 10px);
@@ -174,7 +174,7 @@ img {
     flex-direction: column;
 }
 
-#work .controls {
+#work .controls, #work_divs .controls {
     display: flex;
     height: 50px;
     flex-direction: row;
@@ -182,11 +182,11 @@ img {
     padding: 10px;
 }
 
-#work button {
+#work button, #work_divs button {
     margin-top: 0;
 }
 
-#anim {
+#anim, #anim_divs {
     border: 5px solid blue;
     height: 0;
     flex-grow: 1;
@@ -195,17 +195,17 @@ img {
     display: flex;
 }
 
-#anim #top{
+#anim #top, #anim_divs #top_divs{
     background-image: url("christmas.jpeg");
     flex-grow: 1;
 }
 
-#anim #bottom {
+#anim #bottom, #anim_divs #bottom_divs {
     flex-grow: 1;
     background-image: url("snow.jpeg");
 }
 
-#anim #circle_one {
+#anim #circle_one, #anim_divs #circle_one {
     background: blue;
     position: absolute;
     width: 20px;
@@ -218,11 +218,11 @@ img {
     margin-left: 10px;
 }
 
-.controls #status{
+.controls #status, .controls #status_divs{
     margin-left: 10px;
 }
 
-#anim #circle_two {
+#anim #circle_two, #anim_divs #circle_two {
     background: orange;
     width: 20px;
     position: absolute;
@@ -231,7 +231,7 @@ img {
     border-radius: 50%;
 }
 
-#anim #canvas {
+#anim #canvas, #anim_divs #canvas_divs {
     position: absolute;
     flex-grow: 1;
     width: 100%;
