@@ -116,6 +116,8 @@ img {
     padding: 20px;
     background: teal;
     color: white;
+    display: flex;
+    flex-direction: row;
 }
 
 .seven h1 {
@@ -216,6 +218,7 @@ img {
 
 .controls .title{
     margin-left: 10px;
+    font-size: 15px;
 }
 
 .controls #status, .controls #status_divs{
@@ -236,4 +239,39 @@ img {
     flex-grow: 1;
     width: 100%;
     height: 100%;
+}
+
+
+.title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+}
+
+.rectangle {
+    width: 100px;
+    padding: 5px;
+    height: 50px;
+    background: white;
+    border: 1px solid black;
+    font-size: 30px;
+    color: black;
+}
+
+.rectangle.center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.rectangle.left{
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+
+.seven .rectangle {
+    margin-left: auto;
+
 }

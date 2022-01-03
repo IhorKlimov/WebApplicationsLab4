@@ -9,7 +9,7 @@
 </head>
 <body>
 <div class="one">
-    <h1>Lab 2</h1>
+    <div class="rectangle center">X</div>
     <ul>
         <li><a href="lab4.html">Copy 1</a></li>
         <li><a href="lab4_2.html">Copy 2</a></li>
@@ -17,9 +17,11 @@
         <li><a href="lab4_4.html">Copy 4</a></li>
         <li><a href="lab4_5.html">Copy 5</a></li>
     </ul>
+    <div class="title">1</div>
 </div>
 <div class="content">
     <div id="two" class="two">
+        <div class="title">2</div>
         <p>Second paragraph. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
             ut labore et dolore magna aliqua. Sodales neque sodales ut etiam. Egestas sed sed risus pretium quam
             vulputate dignissim suspendisse in. Interdum posuere lorem ipsum dolor sit amet consectetur. Amet facilisis
@@ -33,6 +35,7 @@
     </div>
     <div class="right-part">
         <div class="three">
+            <div class="title">3</div>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
                 dolore magna aliqua. Sodales neque sodales ut etiam. Egestas sed sed risus pretium quam vulputate
                 dignissim suspendisse in. Interdum posuere lorem ipsum dolor sit amet consectetur. Amet facilisis magna
@@ -44,6 +47,7 @@
         <div class="horizontal">
             <div class="vertical" style="width: 70%">
                 <div id="four" class="four">
+                    <div class="title">4</div>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
                         labore et dolore magna aliqua. Sodales neque sodales ut etiam. Egestas sed sed risus pretium
                         quam vulputate dignissim suspendisse in. Interdum posuere lorem ipsum dolor sit amet
@@ -69,7 +73,7 @@
                         <button type="button" onclick="showFormInputs()">X (Reveal form inputs)</button>
                     </div>
 
-                    <form name="numberInput" onsubmit="return reverseRectangleArea()">
+                    <form name="numberInput" onsubmit="return reverseNumber()">
                         <label for="number">Enter a number</label><br>
                         <input type="text" id="number" name="number"><br>
                         <input type="submit" value="Submit">
@@ -88,8 +92,27 @@
                     <div>
                         <button type="button" onclick="disableCSSFor(this)">2</button>
                     </div>
+
+                    <form name="dropdowns" onsubmit="return createDropdowns()">
+                        <label>Create a dropdown</label>
+                        <br>
+                        <label for="tabTitle">Enter tab title:</label>
+                        <br>
+                        <input id="tabTitle" name="tabTitle" type="text">
+                        <br>
+                        <label for="dropdownContent">Enter coma separated dropdown content</label>
+                        <br>
+                        <input id="dropdownContent" name="dropdownContent" type="text">
+                        <br>
+                        <input type="submit" value="Create dropdown">
+                    </form>
+
+                    <button onclick="showWork()">Play Canvas</button>
+                    <button onclick="showWorkDivs()">Play Divs</button>
+                    <div id="animationLogs"></div>
                 </div>
                 <div class="six">
+                    <div class="title">6</div>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
                         labore et dolore magna aliqua. Sodales neque sodales ut etiam. Egestas sed sed risus pretium
                         quam vulputate dignissim suspendisse in. Interdum posuere lorem ipsum dolor sit amet
@@ -101,6 +124,7 @@
                 </div>
             </div>
             <div id="five" class="five" style="width: 30%">
+                <div class="title">5</div>
                 <p>Fifth paragraph. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
                     incididunt ut labore et dolore magna aliqua. Sodales neque sodales ut etiam. Egestas sed sed risus
                     pretium quam vulputate dignissim suspendisse in. Interdum posuere lorem ipsum dolor sit amet
@@ -113,7 +137,42 @@
     </div>
 </div>
 <div class="seven">
-    <h1>Footer</h1>
+    <div class="title">7</div>
+    <div class="rectangle left">Y</div>
+</div>
+
+<div id="work">
+    <div class="controls">
+        <div>
+            <button id="close_work" onclick="hideWork()">Close</button>
+            <button id="start_animation" onclick="startAnimation()">Start</button>
+        </div>
+        <div class="title">Status:</div>
+        <div id="status"></div>
+    </div>
+    <div id="anim">
+        <div id="top"></div>
+        <div id="bottom"></div>
+        <canvas id="canvas"></canvas>
+    </div>
+</div>
+
+<div id="work_divs">
+    <div class="controls">
+        <div>
+            <button id="close_work_divs" onclick="hideWorkDivs()">Close</button>
+            <button id="start_animation_divs" onclick="startAnimationDivs()">Start</button>
+        </div>
+        <div class="title">Status:</div>
+        <div id="status_divs"></div>
+    </div>
+    <div id="anim_divs">
+        <div id="top_divs"></div>
+        <div id="bottom_divs"></div>
+        <div id="canvas_divs"></div>
+        <div id="circle_one"></div>
+        <div id="circle_two"></div>
+    </div>
 </div>
 
 <script type='text/javascript'>
@@ -138,5 +197,6 @@
     httpRequest.open('GET', 'getDropdown');
     httpRequest.send();
 </script>
+
 </body>
 </html>

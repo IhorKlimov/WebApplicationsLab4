@@ -4,9 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0b034a46-3b74-442a-8520-16346238ef42" name="Changes" comment="Refactoring">
-      <change beforePath="$PROJECT_DIR$/animation_attributes.json" beforeDir="false" afterPath="$PROJECT_DIR$/animation_attributes.json" afterDir="false" />
+    <list default="true" id="0b034a46-3b74-442a-8520-16346238ef42" name="Changes" comment="Make div circle sizes dynamic">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lab4.html" beforeDir="false" afterPath="$PROJECT_DIR$/lab4.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lab4_2.html" beforeDir="false" afterPath="$PROJECT_DIR$/lab4_2.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lab4_3.html" beforeDir="false" afterPath="$PROJECT_DIR$/lab4_3.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lab4_4.html" beforeDir="false" afterPath="$PROJECT_DIR$/lab4_4.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lab4_5.html" beforeDir="false" afterPath="$PROJECT_DIR$/lab4_5.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/script.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/styles.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,6 +70,10 @@
       <workItem from="1640721421627" duration="676000" />
       <workItem from="1641148301668" duration="5012000" />
       <workItem from="1641153377171" duration="221000" />
+      <workItem from="1641153609986" duration="105000" />
+      <workItem from="1641154058425" duration="43000" />
+      <workItem from="1641200738683" duration="124000" />
+      <workItem from="1641201182827" duration="300000" />
     </task>
     <task id="LOCAL-00001" summary="Add basic animations">
       <created>1640518789595</created>
@@ -107,7 +117,14 @@
       <option name="project" value="LOCAL" />
       <updated>1641153514628</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Make div circle sizes dynamic">
+      <created>1641153703585</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1641153703585</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -132,6 +149,7 @@
     <MESSAGE value="Fix circle radius" />
     <MESSAGE value="Add div implementation for animations" />
     <MESSAGE value="Refactoring" />
-    <option name="LAST_COMMIT_MESSAGE" value="Refactoring" />
+    <MESSAGE value="Make div circle sizes dynamic" />
+    <option name="LAST_COMMIT_MESSAGE" value="Make div circle sizes dynamic" />
   </component>
 </project>
