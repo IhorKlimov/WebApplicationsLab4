@@ -19,12 +19,31 @@ class Circle {
         this.ySpeed = ySpeed;
         this.radius = radius;
         this.color = color;
-        console.log(xSpeed, ySpeed);
+        this.xPercent = 0;
+        this.yPercent = 0;
+        this.isInitialPosition = true;
+    }
+
+    adjustToNewCanvasSize(c) {
+        this.x = this.xPercent * c.width;
+
+        if (this.isInitialPosition) {
+            if (this.y === this.radius) {
+                this.y = this.radius;
+            } else {
+                this.y = c.height - this.radius;
+            }
+        } else {
+            this.y = this.yPercent * c.height;
+        }
     }
 
     draw(c, ctx, delta) {
         this.x += this.xSpeed * delta;
         this.y += this.ySpeed * delta;
+        this.xPercent = this.x / c.width;
+        this.yPercent = this.y / c.height;
+        this.isInitialPosition = delta === 0;
 
         // check for wall collisions
         if (this.x + technicalParameters.circleRadius > c.width || this.x - technicalParameters.circleRadius < 0) {
@@ -64,9 +83,10 @@ class DivCircle {
         this.ySpeed = ySpeed;
         this.radius = radius;
         this.color = color;
-        console.log(xSpeed, ySpeed);
+        this.xPercent = 0;
+        this.yPercent = 0;
+        this.isInitialPosition = true;
 
-        console.log(id, x, y);
         this.div = document.getElementById(id);
         this.div.style.color = this.color;
         this.div.style.width = 2 * radius + "px";
@@ -75,9 +95,26 @@ class DivCircle {
         this.div.style.top = this.y - this.radius + "px";
     }
 
+    adjustToNewCanvasSize(c) {
+        this.x = this.xPercent * c.offsetWidth;
+
+        if (this.isInitialPosition) {
+            if (this.y === this.radius) {
+                this.y = this.radius;
+            } else {
+                this.y = c.offsetHeight - this.radius;
+            }
+        } else {
+            this.y = this.yPercent * c.offsetHeight;
+        }
+    }
+
     draw(c, delta) {
         this.x += this.xSpeed * delta;
         this.y += this.ySpeed * delta;
+        this.xPercent = this.x / c.offsetWidth;
+        this.yPercent = this.y / c.offsetHeight;
+        this.isInitialPosition = delta === 0;
 
         // check for wall collisions
         if (this.x + technicalParameters.circleRadius > c.offsetWidth || this.x - technicalParameters.circleRadius < 0) {
@@ -121,6 +158,57 @@ window.onload = function () {
     }
     swapSecondAndFifthParagraphChildren();
     calculatePentagonArea(12);
+}
+
+window.onresize = function () {
+    console.log("resize");
+    adjustCanvasSize();
+
+    const c = document.getElementById("canvas");
+    const ctx = c.getContext("2d");
+    ctx.clearRect(0, 0, c.width, c.height);
+
+
+    if (blueCircle) {
+        blueCircle.adjustToNewCanvasSize(c);
+        blueCircle.draw(c, ctx, 0);
+    }
+    if (orangeCircle) {
+        orangeCircle.adjustToNewCanvasSize(c);
+        orangeCircle.draw(c, ctx, 0);
+    }
+    const cDivs = document.getElementById("canvas_divs");
+
+    if (blueCircleDiv) {
+        blueCircleDiv.adjustToNewCanvasSize(cDivs);
+        blueCircleDiv.draw(cDivs, 0);
+    }
+    if (orangeCircleDiv) {
+        orangeCircleDiv.adjustToNewCanvasSize(cDivs);
+        orangeCircleDiv.draw(cDivs, 0);
+    }
+
+
+    if (blueCircle && orangeCircle) {
+        // check circles for collisions
+        const catet1 = Math.abs(blueCircle.x - orangeCircle.x);
+        const catet2 = Math.abs(blueCircle.y - orangeCircle.y);
+        const distance = Math.hypot(catet1, catet2);
+        if (distance < technicalParameters.circleRadius * 2) {
+            blueCircle.revertDirection();
+            orangeCircle.revertDirection();
+            showStatus("Circle collision detected", true);
+        }
+
+        // check for full placement
+        if (blueCircle.isWithinRectangle(0, c.height / 2, c.width, c.height / 2)
+            && orangeCircle.isWithinRectangle(0, 0, c.width, c.height / 2)) {
+            showStatus("Full placement reached", true);
+            isAnimationDone = true;
+            document.getElementById("start_animation").disabled = false;
+            document.getElementById("start_animation").innerText = technicalParameters.reloadButtonText;
+        }
+    }
 }
 
 
